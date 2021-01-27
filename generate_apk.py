@@ -15,17 +15,18 @@ def main():
 
     FILE_PATH = filedialog.askdirectory()
     if(not FILE_PATH):
-        print("Directory not found")
+        print("Directory not choosed")
         return
     SUB_FOLDER = "/build/app/outputs/bundle/release"
     DESTINATION = FILE_PATH + SUB_FOLDER
+    INSTALATION="\"C:\\Program Files\\generate_apk\""
 
     print("destination: " + DESTINATION)
     # os.system("copy bundletool.jar \"" + FILE_PATH +
     #           SUB_FOLDER + "bundletool.jar\" /Y")
 
     os.system(
-        f"java -jar bundletool.jar build-apks --bundle=\"{FILE_PATH}{SUB_FOLDER}/app.aab\" --output=\"{FILE_PATH}{SUB_FOLDER}/app.apks\" --mode=universal")
+        f"java -jar {INSTALATION}\\bundletool.jar build-apks --bundle=\"{FILE_PATH}{SUB_FOLDER}/app-release.aab\" --output=\"{FILE_PATH}{SUB_FOLDER}/app.apks\" --mode=universal")
 
     def apk_path(file):
         apks = DESTINATION + "/" + file
@@ -33,8 +34,8 @@ def main():
         return apks
     with zipfile.ZipFile(apk_path("app.apks"), 'r') as zip_ref:
         zip_ref.extractall(apk_path(""))
-        os.system("dir")
     os.chdir(FILE_PATH+SUB_FOLDER)
+    os.system("dir")
     os.system(f"start .")
     input("\n\n...........Press to exit...........")
 
