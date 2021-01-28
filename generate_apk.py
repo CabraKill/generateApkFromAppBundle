@@ -19,12 +19,13 @@ def main():
         return
     SUB_FOLDER = "/build/app/outputs/bundle/release"
     DESTINATION = FILE_PATH + SUB_FOLDER
-    INSTALATION="\"C:\\Program Files\\generate_apk\""
+    INSTALATION="\"C:\\Program Files\\generateApkFromAppBundle\""
 
     print("destination: " + DESTINATION)
     # os.system("copy bundletool.jar \"" + FILE_PATH +
     #           SUB_FOLDER + "bundletool.jar\" /Y")
-
+    os.chdir(FILE_PATH)
+    os.system("flutter build appbundle")
     os.system(
         f"java -jar {INSTALATION}\\bundletool.jar build-apks --bundle=\"{FILE_PATH}{SUB_FOLDER}/app-release.aab\" --output=\"{FILE_PATH}{SUB_FOLDER}/app.apks\" --mode=universal")
 
@@ -34,6 +35,7 @@ def main():
         return apks
     with zipfile.ZipFile(apk_path("app.apks"), 'r') as zip_ref:
         zip_ref.extractall(apk_path(""))
+    
     os.chdir(FILE_PATH+SUB_FOLDER)
     os.system("dir")
     os.system(f"start .")
