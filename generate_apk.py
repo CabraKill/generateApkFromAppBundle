@@ -26,8 +26,15 @@ def main():
     #           SUB_FOLDER + "bundletool.jar\" /Y")
     os.chdir(FILE_PATH)
     os.system("flutter build appbundle")
+    if os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app-release.aab"):
+        bundleName = "app-release.aab"
+    elif os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app.aab"): 
+        bundleName = "app.aab"
+    else:
+        print("Bundle file does not exist")
+        return
     os.system(
-        f"java -jar {INSTALATION}\\bundletool.jar build-apks --bundle=\"{FILE_PATH}{SUB_FOLDER}/app-release.aab\" --output=\"{FILE_PATH}{SUB_FOLDER}/app.apks\" --mode=universal")
+        f"java -jar {INSTALATION}\\bundletool.jar build-apks --bundle=\"{FILE_PATH}{SUB_FOLDER}/{bundleName}\" --output=\"{FILE_PATH}{SUB_FOLDER}/app.apks\" --mode=universal")
 
     def apk_path(file):
         apks = DESTINATION + "/" + file
