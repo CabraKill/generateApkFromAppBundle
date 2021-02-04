@@ -19,7 +19,7 @@ def main():
         return
     SUB_FOLDER = "/build/app/outputs/bundle/release"
     DESTINATION = FILE_PATH + SUB_FOLDER
-    INSTALATION="\"C:\\Program Files\\generateApkFromAppBundle\""
+    INSTALATION="\"C:\\Program Files\\generate_apk\""
 
     print("destination: " + DESTINATION)
     # os.system("copy bundletool.jar \"" + FILE_PATH +
