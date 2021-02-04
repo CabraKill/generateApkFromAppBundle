@@ -1,4 +1,4 @@
-# Python script para copiar o bundletool para a pasta de build do appbundle e criar os apks
+# Python script for build app bundle and generate apks from it.
 # Programmer: Raphael
 
 import os
