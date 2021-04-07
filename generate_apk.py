@@ -1,14 +1,29 @@
 # Python script for build app bundle and generate apks from it.
-# Programmer: Raphael
 
 import os
 import tkinter as tk
 from tkinter import filedialog
 import zipfile
+# import argparse
+
+CLI_HEADER = '''
+ /$$$$$$$      /$$           /$$$$$$
+| $$__  $$    | $$          |_  $$_/
+| $$  \ $$    | $$            | $$  
+| $$$$$$$/    | $$            | $$  
+| $$____/     | $$            | $$  
+| $$          | $$            | $$  
+| $$          | $$$$$$$$     /$$$$$$
+|__/          |________/    |______/
+'''
 
 
 def main():
     os.system("color b")
+    print(CLI_HEADER)
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument(
+    #     "--debug", "-v", help="If it will generate a debug apk", default=false)
     print("Choose the base flutter project directory\n\n")
     root = tk.Tk()
     root.withdraw()
@@ -19,7 +34,7 @@ def main():
         return
     SUB_FOLDER = "/build/app/outputs/bundle/release"
     DESTINATION = FILE_PATH + SUB_FOLDER
-    INSTALATION="\"C:\\Program Files\\generate_apk\""
+    INSTALATION = "\"C:\\Program Files\\generate_apk\""
 
     print("destination: " + DESTINATION)
     # os.system("copy bundletool.jar \"" + FILE_PATH +
@@ -28,7 +43,7 @@ def main():
     os.system("flutter build appbundle")
     if os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app-release.aab"):
         bundleName = "app-release.aab"
-    elif os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app.aab"): 
+    elif os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app.aab"):
         bundleName = "app.aab"
     else:
         print("Bundle file does not exist")
@@ -42,7 +57,7 @@ def main():
         return apks
     with zipfile.ZipFile(apk_path("app.apks"), 'r') as zip_ref:
         zip_ref.extractall(apk_path(""))
-    
+
     os.chdir(FILE_PATH+SUB_FOLDER)
     os.system("dir")
     os.system(f"start .")
