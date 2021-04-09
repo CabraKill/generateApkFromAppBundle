@@ -18,3 +18,6 @@ Or even when, for some reason like mine, the apk **APK** can't be directly gener
 ## Improvements or Suggestions 🚀:
 * Make a script to download the bundletool
 * Make cross platform (installation and running)
+
+## ASCII ART generator:
+https://patorjk.com/software/taag
