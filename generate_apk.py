@@ -4,6 +4,7 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 import zipfile
+import subprocess
 # import argparse
 
 CLI_HEADER = '''
@@ -34,13 +35,13 @@ def main():
         return
     SUB_FOLDER = "/build/app/outputs/bundle/release"
     DESTINATION = FILE_PATH + SUB_FOLDER
-    INSTALATION = "\"C:\\Program Files\\generate_apk\""
 
     print("destination: " + DESTINATION)
     # os.system("copy bundletool.jar \"" + FILE_PATH +
     #           SUB_FOLDER + "bundletool.jar\" /Y")
-    os.chdir(FILE_PATH)
-    os.system("flutter build appbundle")
+    subprocess.run(['flutter','clean'],shell=True,cwd=FILE_PATH)
+    subprocess.run(['flutter','build','appbundle'],shell=True,cwd=FILE_PATH)
+    
     if os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app-release.aab"):
         bundleName = "app-release.aab"
     elif os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app.aab"):
@@ -49,7 +50,7 @@ def main():
         print("Bundle file does not exist")
         return
     os.system(
-        f"java -jar {INSTALATION}\\bundletool.jar build-apks --bundle=\"{FILE_PATH}{SUB_FOLDER}/{bundleName}\" --output=\"{FILE_PATH}{SUB_FOLDER}/app.apks\" --mode=universal")
+        f"java -jar {os.path.dirname(__file__)}\\bundletool.jar build-apks --bundle=\"{FILE_PATH}{SUB_FOLDER}/{bundleName}\" --output=\"{FILE_PATH}{SUB_FOLDER}/app.apks\" --mode=universal")
 
     def apk_path(file):
         apks = DESTINATION + "/" + file
