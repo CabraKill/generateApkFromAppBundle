@@ -5,11 +5,20 @@ Or, as I prefer, a PLI, *Python Line InterFace*.
 ![PLI](PLI.png)
 
 ## How to use it 🎯:
+* Install java
 * Download the [latest version of bundleTool.jar](https://github.com/google/bundletool/releases) as bundletool.jar
 * Run install.bat
 * Add the location of bin folder to PATH
-* Run **generate_apk** from command line or **generate_apk.bat** from bash
+* Run:
 
+Command line
+```
+    generate_apk
+```
+Bash
+```bash
+    generate_apk.bat
+```
 ## Why 💡:
 In cases where both appbundle and apk are desired, this PLI may be usefull.
 
