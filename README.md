@@ -25,6 +25,7 @@ In cases where both appbundle and apk are desired, this PLI may be usefull.
 Or even when, for some reason like mine, the apk **APK** can't be directly generated from **flutter build apk**.
 
 ## Improvements or Suggestions 🚀:
+* Add an optional parameter to run on the current location
 * Make a script to download the bundletool
 * Make cross platform (installation and running)
 
