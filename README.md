@@ -5,8 +5,11 @@ Or, as I prefer, a PLI, *Python Line InterFace*.
 ![PLI](PLI.png)
 
 ## How to use it 🎯:
-* Install java
-* Download the [latest version of bundleTool.jar](https://github.com/google/bundletool/releases) as bundletool.jar
+* Make sure you have installed Python and Java
+* Clone the repository
+* Download the [latest version of bundleTool.jar](https://github.com/google/bundletool/releases)
+* Move the bundletool-all-x.x.x to the directory which you clone the repository
+* Rename the bundletool-all-x.x.x to bundletool.jar
 * Run install.bat
 * Add the location of bin folder to PATH
 * Run:
@@ -20,7 +23,7 @@ Bash
     generate_apk.bat
 ```
 ## Why 💡:
-In cases where both appbundle and apk are desired, this PLI may be usefull.
+In cases where both appbundle and apk are desired, this PLI may be useful.
 
 Or even when, for some reason like mine, the apk **APK** can't be directly generated from **flutter build apk**.
 
