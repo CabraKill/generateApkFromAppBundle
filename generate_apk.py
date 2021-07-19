@@ -33,10 +33,10 @@ def main():
     root.withdraw()
 
     choosen_path = filedialog.askdirectory()
-    FILE_PATH = Path(choosen_path)
-    if(not FILE_PATH):
+    if(not choosen_path):
         print("Directory not choosed")
         return
+    FILE_PATH = Path(choosen_path)
     SUB_FOLDER = Path("build/app/outputs/bundle/release")
     DESTINATION = FILE_PATH / SUB_FOLDER
 
