@@ -1,10 +1,14 @@
 # Python script for build app bundle and generate apks from it.
 
 import os
+import pathlib
 import tkinter as tk
 from tkinter import filedialog
 import zipfile
 import subprocess
+from colored import fg, attr
+from pathlib import Path
+import webbrowser
 # import argparse
 
 CLI_HEADER = '''
@@ -20,8 +24,7 @@ CLI_HEADER = '''
 
 
 def main():
-    os.system("color b")
-    print(CLI_HEADER)
+    print(f'%s${CLI_HEADER}%s' % (fg(6),attr(0)))
     # parser = argparse.ArgumentParser()
     # parser.add_argument(
     #     "--debug", "-v", help="If it will generate a debug apk", default=false)
@@ -29,39 +32,44 @@ def main():
     root = tk.Tk()
     root.withdraw()
 
-    FILE_PATH = filedialog.askdirectory()
-    if(not FILE_PATH):
+    choosen_path = filedialog.askdirectory()
+    if(not choosen_path):
         print("Directory not choosed")
         return
-    SUB_FOLDER = "/build/app/outputs/bundle/release"
-    DESTINATION = FILE_PATH + SUB_FOLDER
+    FILE_PATH = Path(choosen_path)
+    SUB_FOLDER = Path("build/app/outputs/bundle/release")
+    DESTINATION = FILE_PATH / SUB_FOLDER
 
-    print("destination: " + DESTINATION)
+    print(f"destination: {DESTINATION}")
     # os.system("copy bundletool.jar \"" + FILE_PATH +
     #           SUB_FOLDER + "bundletool.jar\" /Y")
-    subprocess.run(['flutter','clean'],shell=True,cwd=FILE_PATH)
-    subprocess.run(['flutter','build','appbundle'],shell=True,cwd=FILE_PATH)
+
+    subprocess.run('flutter clean',shell=True,cwd=FILE_PATH)
+    subprocess.run('flutter build appbundle',shell=True,cwd=FILE_PATH)
+
     
-    if os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app-release.aab"):
+    if (DESTINATION / "app-release.aab").exists():
         bundleName = "app-release.aab"
-    elif os.path.exists(f"{FILE_PATH}{SUB_FOLDER}/app.aab"):
+    elif (DESTINATION / "app.aab").exists():
         bundleName = "app.aab"
     else:
         print("Bundle file does not exist")
         return
+    
+    bundleLocation = Path(os.path.dirname(__file__)) / "bundletool.jar" 
     os.system(
-        f"java -jar {os.path.dirname(__file__)}\\bundletool.jar build-apks --bundle=\"{FILE_PATH}{SUB_FOLDER}/{bundleName}\" --output=\"{FILE_PATH}{SUB_FOLDER}/app.apks\" --mode=universal")
+        f"java -jar {bundleLocation} build-apks --bundle=\"{DESTINATION / bundleName}\" --output=\"{DESTINATION / 'app.apks'}\" --mode=universal")
 
     def apk_path(file):
-        apks = DESTINATION + "/" + file
-        print("APKS location: "+apks)
+        apks = DESTINATION / file
+        print(f"APKS location: {apks}")
         return apks
     with zipfile.ZipFile(apk_path("app.apks"), 'r') as zip_ref:
         zip_ref.extractall(apk_path(""))
 
-    os.chdir(FILE_PATH+SUB_FOLDER)
-    os.system("dir")
-    os.system(f"start .")
+    os.chdir(FILE_PATH / SUB_FOLDER)
+    os.listdir()
+    webbrowser.open(os.getcwd())
     input("\n\n...........Press to exit...........")
 
 
