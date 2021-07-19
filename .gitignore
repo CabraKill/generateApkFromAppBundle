@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 bundletool.jar
 bin/generate_apk.bat
+bin/generate_apk.sh
