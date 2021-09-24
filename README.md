@@ -27,7 +27,6 @@ Or even when, for some reason like mine, the apk **APK** can't be directly gener
 * Create requirements
 * Add an optional parameter to run on the current location
 * Make a script to download the bundletool
-* Make cross platform (installation and running)
 
 ## ASCII ART generator:
 https://patorjk.com/software/taag
